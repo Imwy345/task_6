@@ -40,7 +40,7 @@ public class HibernateConfig {
         logger.severe("Creating DataSource");
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/task_6");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/task_6?charSet=UTF-8");
         dataSource.setUsername("postgres");
         dataSource.setPassword("zs462282x");
         logger.severe("DataSource return");
@@ -61,6 +61,10 @@ public class HibernateConfig {
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
+        properties.setProperty("hibernate.connection.charSet", "UTF-8");
+        properties.setProperty("hibernate.connection.useUnicode", "true");
         return properties;
     }
 }
