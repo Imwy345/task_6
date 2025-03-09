@@ -31,7 +31,8 @@
 </head>
 <body>
 <h1>Edit user</h1>
-<form action="#" th:method="PATCH" th:action="@{'/update'}" th:object="${user}">
+<form action="#" method="POST" th:action="@{'/update/' + ${user.id}}" th:object="${user}">
+    <input type="hidden" name="_method" value="patch" />
     <table>
         <tr>
             <td>

@@ -1,40 +1,48 @@
 package web.service;
 
-import java.util.List;
-import javax.validation.Valid;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import web.dao.UserDao;
 import web.model.User;
+import web.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public List<User> getAllUsers() {
-        return this.userDao.getAllUsers();
+        return userRepository.findAll();
     }
 
-    public Object getUserById(int id) {
-        return this.userDao.getUserById(id);
+    public User getUserById(long id) {
+        return userRepository.findById(id);
     }
 
     @Transactional
     public void addUser(User user) {
-        this.userDao.addUser(user);
+        userRepository.save(user);
     }
 
     @Transactional
-    public void removeUser(int id) {
-        this.userDao.removeUser(id);
+    public void removeUser(long id) {
+        userRepository.deleteById(id);
     }
 
     @Transactional
     public void updateUser(@Valid User user) {
-        this.userDao.updateUser(user);
+        User oldUser = userRepository.findById(user.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        System.out.println(oldUser.toString() + " " +user.toString());
+        oldUser.setName(user.getName());
+        oldUser.setEmail(user.getEmail());
+        userRepository.save(oldUser);
     }
 }

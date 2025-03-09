@@ -40,18 +40,24 @@
         <th th:width="120">Surname</th>
         <th th:width="50">Age</th>
         <th th:width="150">Email</th>
+        <th th:width="50">Edit</th>
         <th th:width="50">Delete</th>
     </tr>
-    <tr th:each="users : ${users}">
-
-        <td><a th:href="@{'/' + ${users.id}}" th:text="${users.id}">ID</a></td>
-        <td th:text="${users.name}">Name</td>
-        <td th:text="${users.surname}">Surname</td>
-        <td th:text="${users.age}">Age</td>
-        <td th:text="${users.email}">Email</td>
+    <tr th:each="user : ${users}">
+        <td><a th:href="@{'/' + ${user.id}}" th:text="${user.id}">ID</a></td>
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.surname}">Surname</td>
+        <td th:text="${user.age}">Age</td>
+        <td th:text="${user.email}">Email</td>
         <td>
-            <form th:method="DELETE" th:action="@{'delete/' + ${users.id}}">
-                <input type="submit" class="buttonDelete" value="Delete"/>
+            <a th:href="@{${user.id} + '/update'}">
+                <button class="buttonEdit">Edit</button>
+            </a>
+        </td>
+        <td>
+            <form th:action="@{'/delete/' + ${user.id}}" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="buttonDelete">Delete</button>
             </form>
         </td>
     </tr>

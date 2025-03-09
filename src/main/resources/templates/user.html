@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Users</title>
+    <title>User</title>
     <style>
         table th, table td, form {
             padding: 10px 5px;
@@ -35,9 +35,9 @@
     <td th:utext="${user.age}">Age</td>
     <td th:utext="${user.email}">Email</td>
     <td>
-        <form th:action="@{${user.id} + '/update/'}">
-            <input type="submit" class="buttonEdit" value="Edit"/>
-        </form>
+        <a th:href="@{${user.id} + '/update'}">
+            <button class="buttonEdit">Edit</button>
+        </a>
     </td>
 </table>
 <br>
